@@ -12,7 +12,7 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;     /* 0 means no bar */
 static const int topbar             = 1;     /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10", "Material Design Icons Desktop:size=12" };
+static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=10", "Material Design Icons Desktop:size=11" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#1e222a";
 static const char col_gray2[]       = "#545862";
@@ -22,8 +22,8 @@ static const char coler_gray[] 			= "#3e4451";
 static const char col_cyan[]        = "#98c379";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_gray1,  coler_gray  },
+	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
+	[SchemeSel]  = { col_gray4, col_gray1, coler_gray},
 };
 
 /* tagging */
@@ -49,8 +49,8 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
-	//{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "><>",      NULL },    /* no layout function means floating behavior */
 };
 
 /* key definitions */
@@ -72,30 +72,32 @@ static const char *termcmd[]  = { "st", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 
+	// volume and brightness keys
+  {0,                     XF86XK_AudioMute,       spawn,          SHCMD("pamixer -t")},
+  {0,              XF86XK_AudioRaiseVolume,       spawn,          SHCMD("pamixer -i 5")},
+  {0,              XF86XK_AudioLowerVolume,       spawn,          SHCMD("pamixer -d 5")},
+  {0,              XF86XK_MonBrightnessUp,      	spawn,          SHCMD("brightnessctl s 347")},
+  {0,              XF86XK_MonBrightnessDown,      spawn,          SHCMD("brightnessctl s 47")},
 
-        {0,                     XF86XK_AudioMute,       spawn,          SHCMD("pamixer -t")},
-        {0,              XF86XK_AudioRaiseVolume,       spawn,          SHCMD("pamixer -i 5")},
-        {0,              XF86XK_AudioLowerVolume,       spawn,          SHCMD("pamixer -d 5")},
-        {0,              XF86XK_MonBrightnessUp,      	spawn,          SHCMD("brightnessctl s 347")},
-        {0,              XF86XK_MonBrightnessDown,      spawn,          SHCMD("brightnessctl s 47")},
+  // screenshot fullscreen and cropped
+  {MODKEY|ShiftMask,                  XK_u,       spawn,  SHCMD("maim ~/pictures/screenshots/$(date +%s).png")},
+  {MODKEY,                            XK_u,       spawn,  SHCMD("maim --select ~/pictures/screenshots/$(date +%s).png")},
+	
+	// program launchers
+  { MODKEY,                           XK_c,       spawn,          SHCMD("rofi -show drun") },
+  { MODKEY,                           XK_r,       spawn,          SHCMD("dmenu_run")},
+  { MODKEY,                           XK_Return,  spawn,          SHCMD("st")},
+  { MODKEY,                           XK_n,       spawn,          SHCMD("nemo")},
+  { MODKEY,                           XK_p,       spawn,          SHCMD("pix")},
+  { MODKEY,                           XK_w,       spawn,          SHCMD("firefox")},
+  { MODKEY,                           XK_v,       spawn,          SHCMD("virt-manager")},
+  { MODKEY,                           XK_a,       spawn,          SHCMD("aseprite")},
+  { MODKEY,                           XK_g,       spawn,          SHCMD("godot")},
+  { MODKEY,                           XK_x,       spawn,          SHCMD("i3lock")},
+  { MODKEY|Mod1Mask,                  XK_q,       spawn,          SHCMD("poweroff")},
+  { MODKEY|Mod1Mask,                  XK_r,       spawn,          SHCMD("reboot")},
 
-    // screenshot fullscreen and cropped
-        {MODKEY|ControlMask,                XK_u,       spawn,
-        SHCMD("maim ~/pictures/screenshots/(date +%s).png")},
-        {MODKEY,                            XK_u,       spawn,
-        SHCMD("maim --select ~/pictures/screenshots/$(date +%s).png")},
-
-        { MODKEY,                           XK_c,       spawn,          SHCMD("rofi -show drun") },
-        { MODKEY,                           XK_r,       spawn,          SHCMD("dmenu_run")},
-        { MODKEY,                           XK_Return,  spawn,          SHCMD("st")},
-        { MODKEY,                           XK_n,       spawn,          SHCMD("nemo")},
-        { MODKEY,                           XK_p,       spawn,          SHCMD("pix")},
-        { MODKEY,                           XK_w,       spawn,          SHCMD("firefox")},
-        { MODKEY,                           XK_v,       spawn,          SHCMD("virt-manager")},
-        { MODKEY,                           XK_a,       spawn,          SHCMD("aseprite")},
-        { MODKEY,                           XK_g,       spawn,          SHCMD("godot")},
-        { MODKEY,                           XK_x,       spawn,          SHCMD("i3lock")},
- 
+	// window managment
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
