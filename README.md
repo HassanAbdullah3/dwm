@@ -12,4 +12,4 @@ List of patches I use:
 
 # To Do
 
-- add the [window swallwing patch](https://dwm.suckless.org/patches/swallow/) patch
+- add the [window swallwing](https://dwm.suckless.org/patches/swallow/) patch
