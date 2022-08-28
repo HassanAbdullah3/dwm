@@ -10,6 +10,6 @@ List of patches I use:
 - [autostart](https://dwm.suckless.org/patches/autostart/)
 - [systray](https://dwm.suckless.org/patches/systray/)
 
-# To Do
+## To Do
 
 - add the [window swallwing](https://dwm.suckless.org/patches/swallow/) patch
