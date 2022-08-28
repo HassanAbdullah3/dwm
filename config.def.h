@@ -93,6 +93,7 @@ static Key keys[] = {
   { MODKEY,                           XK_v,       spawn,          SHCMD("virt-manager")},
   { MODKEY,                           XK_a,       spawn,          SHCMD("aseprite")},
   { MODKEY,                           XK_g,       spawn,          SHCMD("godot")},
+  { MODKEY,                           XK_e,       spawn,          SHCMD("emacs")},
   { MODKEY,                           XK_x,       spawn,          SHCMD("i3lock")},
   { MODKEY|Mod1Mask,                  XK_q,       spawn,          SHCMD("poweroff")},
   { MODKEY|Mod1Mask,                  XK_r,       spawn,          SHCMD("reboot")},
